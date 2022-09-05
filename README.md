@@ -26,25 +26,35 @@ Acon3d-api 0.1 ver.은 Node.js, express를 활용하여 구현되었습니다. �
 
 
 ### 회원정보
+#### :id = user data id 
 1. GET    | '/api/users/:id'          회원정보 출력, 관리자만 전체 출력
 2. PUT    | '/api/users/:id'          회원정보 수정
+  - http DELETE localhost:4000/api/users/:id
+
 3. DELETE | '/api/users/:id'          회원정보 삭제
+  - http PUT localhost:4000/api/users/:id isAdmin=false 
 
 
 ### 작가모드
+#### :id = products data id
 1. GET    | '/api/products'        검토 요청 페이지 출력, 작가 본인 것만 출력
 2. POST   | '/api/products'        검토 요청 페이지 전송
 3. GET    | '/api/products/:id'    페이지 수정 출력
 4. PUT    | '/api/products/:id'    페이지 수정 전송
+  - http PUT localhost:4000/api/products/:id/modify price=20000  
 5. DELETE | '/api/products/:id'    페이지 삭제
+  - http DELETE localhost:4000/api/products/:id/delete
 
 
-### 관리자모드
+### 관리자모드 
+#### :id = selects data id
 1. GET    | '/api/select'             검토 요청 페이지 출력, 작가 전체 출력
 2. GET    | '/api/select/list'        검토 요청 페이지 출력
 3. POST   | '/api/select/:id'         검토 완료 페이지 전송
 4. PUT    | '/api/select/:id'         페이지 수정 전송
+  - http PUT localhost:4000/api/select/:id price=20000
 5. DELETE | '/api/select/:id'         페이지 삭제
+  - http DELETE localhost:4000/api/select/:id
 
 
 ### 고객모드
@@ -67,3 +77,10 @@ Acon3d-api 0.1 ver.은 Node.js, express를 활용하여 구현되었습니다. �
 ### 고객
 - 고객은 customer 계정으로 로그인하여 서비스를 이용할 수 있습니다.
 - 고객은 상품을 조회할 수 있습니다.
+
+
+## 5. 추가기능 구현
+- Front-end page
+- Register
+- Profile check
+- User check

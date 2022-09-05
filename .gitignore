@@ -1,0 +1,13 @@
+#env information
+.env
+
+#node moules
+node_modules
+
+#align source
+.prettierrc
+.eslintrc.js
+.vscode
+
+#views
+views

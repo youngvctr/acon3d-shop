@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon src/app.js"
+    "server": "nodemon src/app.js"
   },
   "dependencies": {
     "eslint": "^8.23.0",

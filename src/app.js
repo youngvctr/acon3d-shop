@@ -3,8 +3,6 @@ const express = require('express')
 const path = require('path')
 const { engine } = require('express-handlebars')
 const session = require('express-session')
-const passport = require('passport')
-const flash = require('connect-flash')
 const mongoose = require('mongoose')
 const MongoStore = require('connect-mongo')
 const cookieParser = require('cookie-parser')
@@ -27,6 +25,7 @@ const user = require('./models/user')
 require('dotenv').config()
 const app = express()
 
+// db
 mongoose // @ts-ignore
   .connect(process.env.MONGO_URL)
   .then(() => console.log(`DB conncection is successfull:D`))
@@ -34,6 +33,7 @@ mongoose // @ts-ignore
     console.log(err)
   })
 
+// handlebar template engine
 app.engine(
   '.hbs',
   engine({
@@ -50,6 +50,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 
+// session
 app.use(
   session({
     secret: 'secret-message',
@@ -63,17 +64,14 @@ app.use(
     },
   })
 )
-app.use(flash())
 app.use(express.static(path.join(__dirname, 'public')))
 
+// token
 app.use(async (req, res, next) => {
   res.locals.session = req.session
-
   const { accessToken } = req.cookies
   if (accessToken) {
     const findUser = await verifyToken(accessToken)
-    //console.log(`findUser ; ${findUser}`)
-    //console.log(findUser.id)
     if (findUser) {
       const checkUser = await user.findOne({
         _id: findUser.id,
@@ -87,21 +85,15 @@ app.use(async (req, res, next) => {
         req.isWriter = checkUser.isWriter
         req.auth = true
         req.myCookies = accessToken
-        // console.log(`
-        //              ** User Profile
-        //              - Id: ${req.userId},
-        //              - Name: ${req.username},
-        //              - Admin: ${req.isAdmin},
-        //              - Writer: ${req.isWriter}
-        //              - AccessToken: ${accessToken}`)
       }
     } else {
-      console.log(`** User Profile ?`)
+      console.log(`app.js | User Profile is unloaded.`)
     }
   }
   next()
 })
 
+// routes
 app.use('/', routeIndex)
 app.use('/api/users', routeUser)
 app.use('/api/auth', routeAuth)
@@ -109,6 +101,7 @@ app.use('/api/products', routeProduct)
 app.use('/api/select', routeSelect)
 app.use('/api/items', routeItems)
 
+// error
 app.use((req, res, next) => {
   res.status(404).send('Sorry, Not Found :(')
 })

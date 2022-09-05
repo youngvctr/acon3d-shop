@@ -3,7 +3,8 @@ var mongoose = require('mongoose')
 
 var selectSchema = new mongoose.Schema(
   {
-    title: { type: String, required: true, unique: true },
+    title: { type: String, required: true },
+    writer: { type: String, required: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },
     request: { type: String, required: true },

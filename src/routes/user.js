@@ -4,11 +4,10 @@ const user = require('../models/user')
 
 const router = require('express').Router()
 
-/** update */
+/** 수정 */
 router
   .route('/:id')
   .put(async (req, res) => {
-    console.log(req.body.password)
     if (req.body.password) {
       req.body.password = cryptoJS.AES.encrypt(
         req.body.password,
@@ -30,7 +29,7 @@ router
       res.status(500).json(err)
     }
   })
-  /** delete */
+  /** 삭제 */
   .delete(async (req, res) => {
     try {
       await user.findByIdAndDelete(req.params.id)
@@ -40,7 +39,7 @@ router
     }
   })
 
-/* select all user ; access only admin */
+/* 전체 유저 확인 / admin만 지원*/
 router.get('/', async (req, res) => {
   const admin = await req.isAdmin
   if (admin) {

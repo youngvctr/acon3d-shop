@@ -8,7 +8,7 @@ router.get('/signout', async (req, res) => {
   try {
     req.session.destroy()
     res.clearCookie('accessToken')
-    res.clearCookie('connet.sid')
+    res.clearCookie('connect.sid')
     res.redirect('/')
     console.log(`routes/auth | Logout was successful`)
   } catch (err) {
@@ -46,7 +46,7 @@ router
       console.log(`routes/auth | ${err}`)
       res.render('error', {
         title: 'acon3d-shop',
-        message: 'routes/auth | Something was wrong',
+        message: 'Routes/auth | Something was wrong',
       })
     }
   })
@@ -66,7 +66,7 @@ router
         console.log('routes/auth | Login was wrong')
         return res.render('error', {
           title: 'acon3d-shop',
-          message: 'routes/auth | status(401), Something was wrong',
+          message: 'Routes/auth | status(401), Something was wrong',
         })
       }
 
@@ -80,7 +80,7 @@ router
         console.log('routes/auth | Login was wrong')
         return res.render('error', {
           title: 'acon3d-shop',
-          message: 'routes/auth | status(401), Wrong credentials',
+          message: 'Routes/auth | status(401), Wrong credentials',
         })
       } else {
         const accessToken = await signJWT(findUser)
@@ -102,7 +102,7 @@ router
       console.log(`routes/auth | ${err}, Something was wrong`)
       res.render('error', {
         title: 'acon3d-shop',
-        message: 'routes/auth | status(500), Something was wrong',
+        message: 'Routes/auth | status(500), Something was wrong',
       })
     }
   })

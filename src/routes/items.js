@@ -5,6 +5,7 @@ const select = require('../models/select')
 /** Item list */
 router.route('/').get(async (req, res) => {
   const selects = await select.find({}).sort({ createdAt: -1 })
+  console.log(selects)
   if (selects) {
     return res.render('resource/items', {
       title: 'acon3d-shop',
@@ -15,7 +16,7 @@ router.route('/').get(async (req, res) => {
       auth: req.auth,
       admin: req.isAdmin,
       writer: req.isWriter,
-      products: selects,
+      selects: selects,
     })
   }
 })
